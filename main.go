@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/tarm/serial"
@@ -15,6 +16,11 @@ func main() {
 	c := &serial.Config{
 		Name: "/dev/tty.usbmodem1101", // ←実際の micro:bit のポート名に変更
 		Baud: 115200,                  // micro:bit の標準 baud
+	}
+
+	if len(os.Args) == 2 {
+		fmt.Println(os.Args[1])
+		c.Name = os.Args[1]
 	}
 
 	s, err := serial.OpenPort(c)
