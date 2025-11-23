@@ -11,11 +11,13 @@ import (
 )
 
 func main() {
-	// macOS の micro:bit のポート例: /dev/tty.usbmodem1101
-	// Windows: COM3 など
+	// Example micro:bit serial port
+	//   Linux:   /dev/ttyACM0"
+	//   macOS:   /dev/tty.usbmodem1101
+	//   Windows: COM3
 	c := &serial.Config{
-		Name: "/dev/tty.usbmodem1101", // ←実際の micro:bit のポート名に変更
-		Baud: 115200,                  // micro:bit の標準 baud
+		Name: "/dev/tty.usbmodem1101",
+		Baud: 115200, // micro:bit standard baud
 	}
 
 	if len(os.Args) == 2 {
@@ -35,7 +37,7 @@ func main() {
 		line := reader.Text()
 		fmt.Println("RAW:", line)
 
-		// MakeCode の serial.writeValue() の形式: "A0:123"
+		// The format for serial.writeValue() in MakeCode: ‘A0:123’
 		if strings.Contains(line, ":") {
 			parts := strings.Split(line, ":")
 			if len(parts) == 2 {
